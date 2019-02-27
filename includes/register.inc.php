@@ -51,6 +51,10 @@
 					header("Location: ../signup.php?error=sqlerror=&mail=".$email);
 					exit();
 				}
+				else{
+					$sql = "INSERT INTO user(login, email, password) VALUES(?,?,?)";
+				}
+
 			}
 		}
 	}
