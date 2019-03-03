@@ -15,7 +15,7 @@
 			exit();
 		}
 
-		else if (!filter_var($email, FILTER_VALIDATE_EMAIL) {
+		else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			$_SESSION['error'] = "Proszę podać poprawny adres email";
 			header("Location: ../register.php?emailincorrect");
 			exit();
@@ -53,6 +53,11 @@
 				}
 				else{
 					$sql = "INSERT INTO user(login, email, password) VALUES(?,?,?)";
+					$stmt = mysqli_stmt_init($conn);
+					if(!mysqli_stmt_prepare($stmt, $sql)){
+						header("Location: ../signup.php?error=sqlerror");
+						exit();
+					}
 				}
 
 			}
