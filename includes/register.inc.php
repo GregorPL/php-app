@@ -21,8 +21,8 @@
 			exit();
 		}
 
-		else if (!preg_match("/*[a-zA-Z0-9]*/", $login) {
-			$_SESSION['error'] = "Niepoprawny login";
+		else if (!preg_match("/^[a-zA-Z0-9]*$/", $login)) {
+			$_SESSION['error'] = "asd";
 			header("Location: ../register.php?loginincorrect");
 			exit();
 		}
@@ -34,36 +34,13 @@
 		}
 
 		else{
-			$sql = "SELECT login FROM users WHERE login =?";
-			$stmt = mysqli_stmt_init($conn);
-
-			if (!mysqli_stmt_prepare($stmt, $sql)) {
-				header("Location: ../register.php?sqlerror");
-				exit();
-			}
-
-			else{
-				mysqli_stmt_bind_param($stmt, "s", $login);
-				mysqli_stmt_execute($stmt);
-				mysqli_stmt_store_result($stmt);
-				$resultCheck = mysqli_stmt_num_rows($stmt);
-				if ($resultCheck > 0) {
-					header("Location: ../signup.php?error=sqlerror=&mail=".$email);
-					exit();
-				}
-				else{
-					$sql = "INSERT INTO user(login, email, password) VALUES(?,?,?)";
-					$stmt = mysqli_stmt_init($conn);
-					if(!mysqli_stmt_prepare($stmt, $sql)){
-						header("Location: ../signup.php?error=sqlerror");
-						exit();
-					}
-				}
-
-			}
+			require "reg.inc.php";
 		}
+		mysqli_stmt_close($stmt);
+		mysqli_close($conn);
 	}
 	else{
 		header("Location: ../index.php");
+		exit();
 	}
 ?>
