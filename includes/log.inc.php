@@ -20,9 +20,20 @@
 			else if($pwdCheck == true){
 				session_start();
 				$_SESSION['login'] = $row['login'];
+				$_SESSION['id'] = $row['id'];
+				$sql_role = "SELECT ur.role_id FROM users_role ur
+				JOIN users u ON u.id = ur.users_id
+				WHERE u.id =".$_SESSION['id'];
+				$row_result = mysqli_fetch_assoc($sql_role);
 
-				header("Location: ../index.php?login=succes");
-				exit();
+				if ($row_result['role_id'] == '1') {
+					header("Location: ../panel.php?login=succes");
+					exit();	
+				}
+				else{
+					header("Location: ../sectionOne.php?login=succes");
+					exit();
+				}	
  			}
  			else{
  				header("Location: ../login.php?error=nouser");
