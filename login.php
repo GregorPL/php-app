@@ -7,6 +7,7 @@
 		<input type="text" name="login" placeholder="Login.."><br>
 		<input type="password" name="pass" placeholder="Your password.."><br>
 		<button type="submit" name="loginBtn">Login</button>
+		<a href="resetPassword.php">Zapomniałeś hasła?</a>
 	</form>
 <?php
 	if(!empty($_SESSION['error'])){
